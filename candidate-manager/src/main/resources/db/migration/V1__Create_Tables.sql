@@ -1,0 +1,48 @@
+-- Tabla T_USER
+CREATE TABLE T_USER (
+    idUser BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    state INT NOT NULL,
+    registrationDate DATETIME NOT NULL
+);
+
+-- Tabla T_USER_PASSWORD
+CREATE TABLE T_USER_PASSWORD (
+    idUserPassword BIGINT AUTO_INCREMENT PRIMARY KEY,
+    idUser BIGINT NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    state INT NOT NULL,
+    registrationDate DATETIME NOT NULL,
+    FOREIGN KEY (idUser) REFERENCES T_USER(idUser)
+);
+
+-- Tabla T_ROLE
+CREATE TABLE T_ROLE (
+    idRole BIGINT AUTO_INCREMENT PRIMARY KEY,
+    code VARCHAR(50) NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    state INT NOT NULL,
+    registrationDate DATETIME NOT NULL
+);
+
+-- Tabla T_USER_ROLE
+CREATE TABLE T_USER_ROLE (
+    idUserRole BIGINT AUTO_INCREMENT PRIMARY KEY,
+    idUser BIGINT NOT NULL,
+    idRole BIGINT NOT NULL,
+    state INT NOT NULL,
+    registrationDate DATETIME NOT NULL,
+    FOREIGN KEY (idUser) REFERENCES T_USER(idUser),
+    FOREIGN KEY (idRole) REFERENCES T_ROLE(idRole)
+);
+
+-- Tabla T_CANDIDATE
+CREATE TABLE T_CANDIDATE (
+    idCandidate BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    gender VARCHAR(50) NOT NULL,
+    expectedSalary DECIMAL(19, 2) NOT NULL,
+    state INT NOT NULL,
+    registrationDate DATETIME NOT NULL
+);
