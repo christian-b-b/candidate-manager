@@ -48,7 +48,6 @@ public class CandidateServiceImplTest {
     @Test
     @DisplayName("Create a candidate")
     void testAddCandidate() {
-        //Arrange
         Candidate candidate = new Candidate();
         candidate.setName("Christian Baldeón Baldeón");
         candidate.setEmail("baldeon.bc@gmail.com");
@@ -83,10 +82,8 @@ public class CandidateServiceImplTest {
         when(candidateRepository.save(any(Candidate.class))).thenReturn(candidate1);
         when(candidateToCandidateResponseDTOConverter.fromEntity(any(Candidate.class))).thenReturn(responseDTO);
 
-        //Act
         CandidateResponseDTO savedCandidate = candidateService.save(requestDTO);
 
-        //Asserts
         assertNotNull(savedCandidate);
         assertEquals("Christian Baldeón Baldeón", savedCandidate.getName());
     }
@@ -94,7 +91,7 @@ public class CandidateServiceImplTest {
     @Test
     @DisplayName("Update a candidate")
     void testUpdateCandidate() {
-        //Arrange
+
         Long candidateId = 1L;
         Candidate candidate = new Candidate();
         candidate.setIdCandidate(candidateId);
@@ -131,10 +128,8 @@ public class CandidateServiceImplTest {
         when(candidateRepository.save(any(Candidate.class))).thenReturn(candidate1);
         when(candidateToCandidateResponseDTOConverter.fromEntity(any(Candidate.class))).thenReturn(responseDTO);
 
-        //Act
         CandidateResponseDTO updatedCandidate = candidateService.update(candidateId, requestDTO);
 
-        //Asserts
         assertNotNull(updatedCandidate);
         assertEquals("Leonardo Perez Tello", updatedCandidate.getName());
     }
@@ -142,7 +137,6 @@ public class CandidateServiceImplTest {
     @Test
     @DisplayName("Delete a candidate by id")
     void testDeleteCandidate() {
-        //Arrange
         Long candidateId = 1L;
         Candidate candidate = new Candidate();
         candidate.setIdCandidate(candidateId);
@@ -150,10 +144,9 @@ public class CandidateServiceImplTest {
 
         when(candidateRepository.findById(candidateId)).thenReturn(Optional.of(candidate));
         doNothing().when(candidateRepository).delete(candidate);
-        //Act
+
         candidateService.deleteById(candidateId);
 
-        //Asserts
         verify(candidateRepository, times(1)).findById(candidateId);
         verify(candidateRepository, times(1)).delete(candidate);
     }
@@ -161,7 +154,6 @@ public class CandidateServiceImplTest {
     @Test
     @DisplayName("Return all candidates")
     void testGetAllCandidates() {
-        //Arrange
         Candidate candidate1 = new Candidate();
         candidate1.setName("Leonardo Perez Tello");
         candidate1.setEmail("leonardo.pt@gmail.com");
@@ -183,10 +175,8 @@ public class CandidateServiceImplTest {
         when(candidateRepository.findAll()).thenReturn(candidateList);
         when(candidateToCandidateResponseDTOConverter.fromEntity(candidateList)).thenReturn(Arrays.asList(responseDTO1, responseDTO2));
 
-        //Act
         List<CandidateResponseDTO> candidates = candidateService.findAll();
 
-        //Asserts
         assertEquals(2, candidates.size());
         assertEquals("Leonardo Perez Tello", candidates.get(0).getName());
         assertEquals("Christian Baldeón Baldeón", candidates.get(1).getName());
@@ -195,7 +185,6 @@ public class CandidateServiceImplTest {
     @Test
     @DisplayName("Return a candidate by id")
     void testGetCandidateById() {
-        //Arrange
         Long candidateId = 1L;
         Candidate candidate = new Candidate();
         candidate.setIdCandidate(candidateId);
@@ -209,10 +198,8 @@ public class CandidateServiceImplTest {
         when(candidateRepository.findById(candidateId)).thenReturn(Optional.of(candidate));
         when(candidateToCandidateResponseDTOConverter.fromEntity(candidate)).thenReturn(responseDTO);
 
-        //Act
         CandidateResponseDTO foundCandidate = candidateService.findById(candidateId);
 
-        //Asserts
         assertNotNull(foundCandidate);
         assertEquals("Christian Baldeón Baldeón", foundCandidate.getName());
     }
